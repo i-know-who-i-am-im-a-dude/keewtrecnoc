@@ -14,7 +14,6 @@ class SpotifyOAuthButton extends Component {
         size='big'
         disabled={ spotify.connection ? true : false }
         onClick={ !spotify.connection ? authorize : null }
-        content={ !spotify.connection ? 'Connect to Spotify' : 'Spotify Connected' }
       >
         <Icon size='big' name='spotify' /> 
         { spotify.connection ? 'Connected' : 'Connect' }
