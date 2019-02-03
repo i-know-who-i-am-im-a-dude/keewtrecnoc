@@ -58,7 +58,7 @@ export class AuthService {
   logout = () => {
     this.auth0.logout({ 
       returnTo: apiRoutes.auth0.logoutReturnTo,
-      clientID: this.clientID
+      clientID: Auth0Options.clientID
     })
   }
 }
