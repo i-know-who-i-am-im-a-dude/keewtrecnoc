@@ -1,3 +1,5 @@
+import { apiRoutes } from './../utils'
+
 
 const _buildUrl = (resource, params) => {
   const url = new URL(resource)
@@ -9,7 +11,7 @@ const _buildUrl = (resource, params) => {
 export default class SpotifyService {
 
   constructor() {
-    this.api = {
+    this.credentials = {
       clientID: process.env.SPOTIFY_CLIENT_ID, 
       secret: process.env.SPOTIFY_SECRET
     }
@@ -26,10 +28,10 @@ export default class SpotifyService {
   }
 
   get authorizationUrl() {
-    return _buildUrl('https://accounts.spotify.com/authorize', {
-      client_id: this.api.clientID,
+    return _buildUrl(apiRoutes.spotify.authorize, {
+      client_id: this.credentials.clientID,
       response_type: 'code',
-      redirect_uri: 'https://localhost:3000/spotify-callback',
+      redirect_uri: apiRoutes.spotify.redirect,
       scope: this.scopes
     })
   }
