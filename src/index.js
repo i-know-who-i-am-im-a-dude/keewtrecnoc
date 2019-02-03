@@ -11,8 +11,8 @@ import createHistory from 'history/createBrowserHistory'
 
 
 import Home from './views/Home'
-
-import { PrivateRoute } from './utils'
+import { AuthCallback } from './identity'
+import { SpotifyCallback } from './spotify'
 
 import rootReducer from './rootReducer'
 
@@ -25,7 +25,7 @@ const middleware = [
   routerMiddleware(history)
 ]
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(...middleware))
 )
@@ -39,7 +39,7 @@ ReactDOM.render(
       <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/auth0-callback" component={AuthCallback} />
-          <PrivateRoute exact path="/spotify-callback" component={SpotifyOAuthCallback} />
+          <Route exact path="/spotify-callback" component={SpotifyCallback} />
         </Switch>
       </div>
     </ConnectedRouter>

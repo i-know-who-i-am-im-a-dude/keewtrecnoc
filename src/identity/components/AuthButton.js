@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Button } from 'semantic-ui-react'
+
+import { LOGIN_REQUESTED, LOGOUT_REQUESTED } from './../actions'
 
 
 class AuthButton extends Component {
@@ -8,7 +11,6 @@ class AuthButton extends Component {
     const { auth, login, logout } = this.props
     return (
       <Button 
-        size={'big'}
         onClick={ auth ? logout : login }
         content={ auth ? 'Logout' : 'Login' }
       />

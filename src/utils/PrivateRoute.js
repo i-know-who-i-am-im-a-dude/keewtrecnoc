@@ -5,11 +5,11 @@ import { Redirect, Route } from 'react-router-dom'
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   let comp
-  if (rest.activeSession) {
+  if (rest.auth) {
     comp = props => <Component {...props} />
   } else {
     comp = props => <Redirect to={{ 
-      pathname: '/login', 
+      pathname: '/', 
       state: { from: props.location }
     }} />
   }
@@ -18,7 +18,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 
 const mapStateToProps = state => {
   return {
-    activeSession: state.session.activeSession
+    auth: state.identity.auth
   }
 }
 

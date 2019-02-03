@@ -1,5 +1,4 @@
-import { push } from 'react-router-redux'
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 
 import { apiRoutes } from './../utils'
 
@@ -20,13 +19,13 @@ import {
 
 export function* login(action) {
   try {
-    const authService = new authService()
-    yield call(authService.login)
-    yield put({ type: LOGIN_SUCCEEDED, data: action.data })
+    const authService = new AuthService()
+    const data = yield call(authService.login)
+    yield put({ type: LOGIN_SUCCEEDED, data })
     yield put({ type: GET_USER_DATA_REQUESTED })
   }
   catch (err) {
-    yield put({ type: LOGIN_FAILED, err })
+    yield put({ type: LOGIN_FAILED, err: err.message })
   }
 }
 
@@ -36,7 +35,7 @@ export function* loginCallback(action) {
     yield call(authService.loginCallback)
   }
   catch (err) {
-    yield put({ type: LOGIN_FAILED, err })
+    yield put({ type: LOGIN_FAILED, err: err.message })
   }
 }
 
@@ -47,7 +46,7 @@ export function* logout(action) {
     yield put({ type: LOGOUT_SUCCEEDED })
   }
   catch (err) {
-    yield put({ type: LOGOUT_FAILED, err })
+    yield put({ type: LOGOUT_FAILED, err: err.message })
   }
 }
 
@@ -59,7 +58,7 @@ export function* getUserMetadata(action) {
     yield put({ type: GET_USER_DATA_SUCCEEDED, data })
   }
   catch (err) {
-    yield put({ type: GET_USER_DATA_FAILED, err })
+    yield put({ type: GET_USER_DATA_FAILED, err: err.message })
   }
 }
 
@@ -71,6 +70,6 @@ export function* updateUserMetadata(action) {
     yield put({ type: UPDATE_USER_DATA_SUCCEEDED, data })
   }
   catch (err) {
-    yield put({ type: UPDATE_USER_DATA_FAILED, err })
+    yield put({ type: UPDATE_USER_DATA_FAILED, err: err.message })
   }
 }

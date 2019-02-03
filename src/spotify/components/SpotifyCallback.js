@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { SPOTIFY_OAUTH_CALLBACK } from './actions'
+import { SPOTIFY_OAUTH_CALLBACK } from './../actions'
 
 
 class SpotifyCallback extends Component {
