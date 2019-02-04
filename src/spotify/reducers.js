@@ -11,7 +11,7 @@ const initialState = {
 }
 
 
-export default function spotifyReducer (state = initialState, action) {
+export default function spotifyReducer(state = initialState, action) {
   switch(action.type) {
 
     case SPOTIFY_OAUTH_SUCCEEDED:

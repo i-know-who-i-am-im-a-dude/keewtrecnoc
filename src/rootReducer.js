@@ -5,6 +5,7 @@ import identityReducer from './identity/reducers'
 import spotifyReducer from './spotify/reducers'
 
 export default combineReducers({
+  router: routerReducer, 
   identity: identityReducer, 
   spotify: spotifyReducer
 })
