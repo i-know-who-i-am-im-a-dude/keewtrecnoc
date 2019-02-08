@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { SpotifyOAuthButton } from './../../spotify'
+import { LocationButton } from './../../identity'
 import Layout from './..'
 
 
@@ -13,6 +14,7 @@ class Home extends Component {
       <Layout>
         Home Page!
         { user ? <SpotifyOAuthButton /> : null }
+        { user ? <LocationButton /> : null }
       </Layout>
     )
   }
