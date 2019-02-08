@@ -12,8 +12,11 @@ import {
   GET_USER_DATA_REQUESTED,
   GET_USER_DATA_SUCCEEDED,
   GET_USER_DATA_FAILED,
+  UPDATE_USER_DATA_REQUESTED,
   UPDATE_USER_DATA_SUCCEEDED,
-  UPDATE_USER_DATA_FAILED
+  UPDATE_USER_DATA_FAILED, 
+  GET_LOCATION_DATA_SUCCEEDED, 
+  GET_LOCATION_DATA_FAILED
 } from './actions'
 
 
@@ -71,5 +74,26 @@ export function* updateUserMetadata(action) {
   }
   catch (err) {
     yield put({ type: UPDATE_USER_DATA_FAILED, err: err.message })
+  }
+}
+
+export function* getLocation(action) {
+  try {
+    const { userID, accessToken } = yield select(store => store.identity.auth)
+    const userService = new UserService(userID, accessToken)
+    const { coords } = yield call(userService.getLocation)
+    const location = { 
+      location: {
+        coord: {
+          latitude: coords.latitude, 
+          longitude: coords.longitude 
+        }
+      }
+    }
+    yield put({ type: GET_LOCATION_DATA_SUCCEEDED, data: location })
+    yield put({ type: UPDATE_USER_DATA_REQUESTED, data: location })
+  }
+  catch (err) {
+    yield put({ type: GET_LOCATION_DATA_FAILED, err: err.message })
   }
 }

@@ -10,14 +10,16 @@ import {
   loginCallback, 
   logout, 
   getUserMetadata, 
-  updateUserMetadata 
+  updateUserMetadata, 
+  getLocation
 } from './identity/sagas'
 import {  
   LOGIN_REQUESTED, 
   LOGIN_CALLBACK, 
   LOGOUT_REQUESTED, 
   GET_USER_DATA_REQUESTED, 
-  UPDATE_USER_DATA_REQUESTED
+  UPDATE_USER_DATA_REQUESTED,
+  GET_LOCATION_DATA_REQUESTED
 } from './identity/actions'
 
 import {
@@ -40,6 +42,7 @@ export default function* rootSaga() {
   yield takeLatest(LOGOUT_REQUESTED, logout)
   yield takeLatest(GET_USER_DATA_REQUESTED, getUserMetadata)
   yield takeLatest(UPDATE_USER_DATA_REQUESTED, updateUserMetadata)
+  yield takeLatest(GET_LOCATION_DATA_REQUESTED, getLocation)
   yield takeLatest(SPOTIFY_OAUTH_REQUESTED, authorize)
   yield takeLatest(SPOTIFY_OAUTH_CALLBACK, authorizationCallback)
 }

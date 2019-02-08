@@ -1,3 +1,7 @@
-import { AuthButton, AuthCallback } from './components'
+import { 
+  AuthButton, 
+  AuthCallback, 
+  LocationButton 
+} from './components'
 
-export { AuthButton, AuthCallback }
+export { AuthButton, AuthCallback, LocationButton }

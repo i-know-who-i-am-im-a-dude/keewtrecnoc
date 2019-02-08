@@ -43,7 +43,7 @@ export class AuthService {
             // https://github.com/auth0/auth0.js/issues/512
             console.error('known Auth0 bug (recoverable)', err)
           } else {
-            this.attemptCallback()
+            this.loginCallback()
             reject(err)
           }
         }
@@ -63,6 +63,7 @@ export class AuthService {
   }
 }
 
+
 export class UserService {
   /*
     Secondary interface object providing 
@@ -77,11 +78,11 @@ export class UserService {
     })
   }
 
-  setData = data => {
-    this.data = Object.assign({}, data)
-  }
-
   getMetadata = () => {
+    /*
+      Obtains the current User object from Auth0, including 
+      all app-defined user metadata. Returns the entire user object
+    */
     return new Promise((resolve, reject) => {
       this.auth0.getUser(this.id, (err, data) => {
         if (data) {
@@ -94,6 +95,10 @@ export class UserService {
   }
 
   updateMetadata = data => {
+    /*
+      Update the Auth0 'user_metadata' property on the current user.
+      Returns the newly updated user object.
+    */
     return new Promise((resolve, reject) => {
       this.auth0.patchUserMetadata(this.id, data, (err, resp) => {
         if (resp) {
@@ -102,6 +107,24 @@ export class UserService {
           reject(err)
         }
       })
+    })
+  }
+
+  getLocation = () => {
+    /*
+      Obtains the current user's location based on the available 
+      browser API. 
+      Returns the position object containing coordinates.
+    */
+    return new Promise((resolve, reject) => {
+      try {
+        navigator.geolocation.getCurrentPosition(pos => {
+          resolve(pos)
+        })
+      }
+      catch (err) {
+        reject(err)
+      }
     })
   }
 
