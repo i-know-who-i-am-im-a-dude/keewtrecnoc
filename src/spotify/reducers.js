@@ -6,19 +6,17 @@ import {
 import SpotifyService from './services'
 
 
-const initialState = { 
-  connection: null 
-}
+const initialState = {}
 
 
 export default function spotifyReducer(state = initialState, action) {
   switch(action.type) {
 
     case SPOTIFY_OAUTH_SUCCEEDED:
-      return Object.assign({}, state, { connection: action.data })
+      return Object.assign({}, state, {})
 
     case SPOTIFY_OAUTH_FAILED:
-      return Object.assign({}, state, { auth: null, err: action.err })
+      return Object.assign({}, state, { err: action.err })
 
     default:
       return state

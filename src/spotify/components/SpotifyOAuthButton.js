@@ -12,11 +12,11 @@ class SpotifyOAuthButton extends Component {
     return (
       <Button 
         size='big'
-        disabled={ spotify.connection ? true : false }
-        onClick={ !spotify.connection ? authorize : null }
+        disabled={ ('token' in spotify) ? true : false }
+        onClick={ !('token' in spotify) ? authorize : null }
       >
         <Icon size='big' name='spotify' /> 
-        { spotify.connection ? 'Connected' : 'Connect' }
+        { ('token' in spotify) ? 'Connected' : 'Connect' }
       </Button>
     )
   }
@@ -24,7 +24,7 @@ class SpotifyOAuthButton extends Component {
 
 const mapStateToProps = state => {
   return {
-    spotify: state.spotify
+    spotify: state.identity.user.user_metadata.spotify || {}
   }
 }
 
