@@ -38,8 +38,8 @@ ReactDOM.render(
       <div>
       <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/auth0-callback" component={AuthCallback} />
-          <Route exact path="/spotify-callback" component={SpotifyCallback} />
+          <Route exact path={process.env.LOGIN_CALLBACK} component={AuthCallback} />
+          <Route exact path={process.env.SPOTIFY_CALLBACK} component={SpotifyCallback} />
         </Switch>
       </div>
     </ConnectedRouter>

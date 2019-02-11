@@ -1,0 +1,26 @@
+{
+  "name": "mcw-utils",
+  "version": "1.0.0",
+  "description": "Miscellaneous helper functions and other tools",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "npmClient": "yarn",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir dist",
+    "dev": "yarn run build && yarn run start",
+    "start": "node dist"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0"
+  },
+  "devDependencies": {
+  	"babel-core": "^6.26.3",
+  	"babel-loader": "^7.1.4",
+  	"babel-plugin-transform-class-properties": "^6.24.1",
+  	"babel-polyfill": "^6.26.0",
+  	"babel-preset-env": "^1.6.1",
+  	"babel-preset-es2015": "^6.24.1",
+  	"babel-preset-stage-0": "^6.24.1",
+  	"babel-preset-stage-1": "^6.24.1"
+  }
+}

@@ -2,7 +2,7 @@ import { call, put, select } from 'redux-saga/effects'
 
 import { apiRoutes } from './../utils'
 
-import { AuthService, UserService } from './services'
+import { AuthService, UserService } from 'mcw-identity'
 
 import {
   LOGIN_SUCCEEDED,
@@ -81,15 +81,17 @@ export function* getLocation(action) {
   try {
     const { userID, accessToken } = yield select(store => store.identity.auth)
     const userService = new UserService(userID, accessToken)
-    const { coords } = yield call(userService.getLocation)
-    const location = { 
-      location: {
-        coord: {
-          latitude: coords.latitude, 
-          longitude: coords.longitude 
+    const location = yield call(async () => {
+      const pos = await navigator.geolocation.getCurrentPosition()
+      return  {
+        location: {
+          coord: {
+            latitude: pos.coords.latitude, 
+            longitude: pos.coords.longitude 
+          }
         }
       }
-    }
+    })
     yield put({ type: GET_LOCATION_DATA_SUCCEEDED, data: location })
     yield put({ type: UPDATE_USER_DATA_REQUESTED, data: location })
   }

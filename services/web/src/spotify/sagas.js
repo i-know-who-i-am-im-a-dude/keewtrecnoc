@@ -7,14 +7,14 @@ import {
 
 import { UPDATE_USER_DATA_REQUESTED } from './../identity/actions'
 
-import SpotifyService from './services'
+import { Spotify } from 'mcw-playlists'
 
 import { store } from './..'
 
 
 export function* authorize(action) {
   try {
-    const spotify = new SpotifyService()
+    const spotify = new Spotify()
     const channel = new BroadcastChannel('spotify-oauth')
     channel.onmessage = e => {
       const token = new URLSearchParams(e.data).get('code')

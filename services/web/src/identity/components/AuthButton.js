@@ -11,7 +11,7 @@ class AuthButton extends Component {
     const { auth, login, logout } = this.props
     return (
       <Button 
-        onClick={ auth ? logout : login }
+        onClick={ auth ? logout() : login }
         content={ auth ? 'Logout' : 'Login' }
       />
     )
