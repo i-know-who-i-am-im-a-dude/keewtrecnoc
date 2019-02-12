@@ -1,0 +1,7 @@
+{
+  "name": "mcw-jobs",
+  "version": "1.0.0",
+  "description": "Job code necessary to complete scheduled tasks",
+  "main": "index.js",
+  "license": "MIT"
+}

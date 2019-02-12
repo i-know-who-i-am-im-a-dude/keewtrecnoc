@@ -3,7 +3,7 @@ import {
   SPOTIFY_OAUTH_FAILED
 } from './actions'
 
-import SpotifyService from './services'
+import SpotifyService from 'mcw-playlists'
 
 
 const initialState = {}

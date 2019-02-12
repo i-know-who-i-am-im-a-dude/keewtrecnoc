@@ -1,10 +1,10 @@
 import auth0 from 'auth0-js'
-import { apiRoutes } from './../utils'
+
 
 const Auth0Options = {
   clientID: process.env.AUTH0_CLIENT_ID,
-  domain: apiRoutes.auth0.domain,
-  audience: apiRoutes.auth0.audience,
+  domain: process.env.AUTH0_DOMAIN,
+  audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
   responseType: 'token id_token'
 }
 
@@ -32,8 +32,11 @@ export class AuthService {
 
 
   login = () => {
-    const authParams = { redirectUri: apiRoutes.auth0.redirect }
     return new Promise((resolve, reject) => {
+      const { APP_HOST, APP_PORT, APP_PROTOCOL, LOGIN_CALLBACK } = process.env
+      const host = APP_HOST === 'localhost' ? `localhost:${APP_PORT}` : APP_HOST
+      const redirectUrl = `${APP_PROTOCOL}://${host}${LOGIN_CALLBACK}`
+      const authParams = { redirectUri: redirectUrl }
       this.auth0.popup.authorize(authParams, (err, result) => {
         if (result) {
           resolve(result)
@@ -56,8 +59,10 @@ export class AuthService {
   }
 
   logout = () => {
+    const { APP_HOST, APP_PORT, APP_PROTOCOL } = process.env
+    const host = APP_HOST === 'localhost' ? `localhost:${APP_PORT}` : APP_HOST
     this.auth0.logout({ 
-      returnTo: apiRoutes.auth0.logoutReturnTo,
+      returnTo: `${APP_PROTOCOL}://${host}`,
       clientID: Auth0Options.clientID
     })
   }
@@ -107,24 +112,6 @@ export class UserService {
           reject(err)
         }
       })
-    })
-  }
-
-  getLocation = () => {
-    /*
-      Obtains the current user's location based on the available 
-      browser API. 
-      Returns the position object containing coordinates.
-    */
-    return new Promise((resolve, reject) => {
-      try {
-        navigator.geolocation.getCurrentPosition(pos => {
-          resolve(pos)
-        })
-      }
-      catch (err) {
-        reject(err)
-      }
     })
   }
 
