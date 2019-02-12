@@ -1,8 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 
-import { apiRoutes } from './../utils'
-
 import { AuthService, UserService } from 'mcw-identity'
+import { SongkickService } from 'mcw-events'
 
 import {
   LOGIN_SUCCEEDED,
@@ -23,12 +22,12 @@ import {
 export function* login(action) {
   try {
     const authService = new AuthService()
-    const data = yield call(authService.login)
+    const data = yield call(authService.login, process.env.LOGIN_CALLBACK)
     yield put({ type: LOGIN_SUCCEEDED, data })
     yield put({ type: GET_USER_DATA_REQUESTED })
   }
   catch (err) {
-    yield put({ type: LOGIN_FAILED, err: err.message })
+    yield put({ type: LOGIN_FAILED, err })
   }
 }
 
@@ -45,7 +44,7 @@ export function* loginCallback(action) {
 export function* logout(action) {
   try {
     const authService = new AuthService()
-    yield call(authService.logout)
+    yield call(authService.logout, process.env.LOGOUT_REDIRECT)
     yield put({ type: LOGOUT_SUCCEEDED })
   }
   catch (err) {
@@ -81,21 +80,28 @@ export function* getLocation(action) {
   try {
     const { userID, accessToken } = yield select(store => store.identity.auth)
     const userService = new UserService(userID, accessToken)
-    const location = yield call(async () => {
-      const pos = await navigator.geolocation.getCurrentPosition()
-      return  {
-        location: {
-          coord: {
-            latitude: pos.coords.latitude, 
-            longitude: pos.coords.longitude 
+    const location = yield call(() => new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(pos => {
+        resolve({
+          location: {
+            coord: {
+              latitude: pos.coords.latitude, 
+              longitude: pos.coords.longitude 
+            }
           }
-        }
-      }
-    })
+        })
+      })
+    }))
+    const songkick = new SongkickService()
+    const { latitude, longitude } = location.location.coord
+    const metro = yield call(songkick.getMetro.bind(songkick), latitude, longitude)
+    location.location.metro = metro
+    console.log(location)
     yield put({ type: GET_LOCATION_DATA_SUCCEEDED, data: location })
     yield put({ type: UPDATE_USER_DATA_REQUESTED, data: location })
   }
   catch (err) {
+    console.log(err)
     yield put({ type: GET_LOCATION_DATA_FAILED, err: err.message })
   }
 }

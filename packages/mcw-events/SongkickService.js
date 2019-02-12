@@ -1,4 +1,4 @@
-import * from 'node-fetch' as fetch
+const fetch = require('node-fetch')
 import { QueryUrl } from 'mcw-utils'
 
 
@@ -11,45 +11,48 @@ export default class SongkickService {
   }
 
 
-  async searchMetro(name) {
+  async searchMetro() {
     const path = '/search/locations.json'
-    const resp = await fetch(new QueryUrl(`${this.host}${path}`, {
+    const resp = await fetch(QueryUrl(`${this.host}${path}`, {
       query: name,
       apikey: this.key
     }))
     if (resp.ok) {
       const data = await resp.json()
+      const firstMetro = data.resultsPage.results.location[0].metroArea
       return {
-        id: data.resultsPage.results[0].metroArea.id,
-        city: data.resultsPage.results[0].metroArea.displayName,
-        state: data.resultsPage.results[0].metroArea.state,
-        country: data.resultsPage.results[0].metroArea.country 
+        id: firstMetro.id,
+        name: firstMetro.displayName,
+        state: firstMetro.state.displayName,
+        country: firstMetro.country.displayName
       }
     }
   }
 
 
   async getMetro(lat, lng) {
-    const path = '/search/locations.json'
-    const resp = await fetch(new QueryUrl(`${this.host}${path}`, {
+    console.log(this)
+    const url = `${this.host}/search/locations.json`
+    const resp = await fetch(QueryUrl(url, {
       location: `geo:${lat},${lng}`,
       apikey: this.key
     }))
     if (resp.ok) {
       const data = await resp.json()
+      const firstMetro = data.resultsPage.results.location[0].metroArea
       return {
-        id: data.resultsPage.results[0].metroArea.id,
-        metro: data.resultsPage.results[0].metroArea.displayName,
-        state: data.resultsPage.results[0].metroArea.state,
-        country: data.resultsPage.results[0].metroArea.country 
+        id: firstMetro.id,
+        name: firstMetro.displayName,
+        state: firstMetro.state.displayName,
+        country: firstMetro.country.displayName 
       }
     }
   }
 
 
-  async getMetroConcerts(metroID, registrationTime, interval) {
+  async getMetroConcerts (metroID, registrationTime, interval) {
     const path = `/metro_areas/${metroID}/calendar.json`
-    const endpoint = new QueryUrl(`${this.host}${path}`, {
+    const endpoint = QueryUrl(`${this.host}${path}`, {
       apikey: this.apikey,
 
     })

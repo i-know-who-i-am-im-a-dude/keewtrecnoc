@@ -1,3 +1,3 @@
 import SongkickService from './SongkickService'
 
-export { Songkick }
+export { SongkickService }

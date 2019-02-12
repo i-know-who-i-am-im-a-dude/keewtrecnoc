@@ -32,6 +32,8 @@ export const store = createStore(
 
 sagaMiddleware.run(rootSaga)
 
+console.log(process.env)
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

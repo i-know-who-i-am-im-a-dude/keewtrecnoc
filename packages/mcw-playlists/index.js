@@ -1,3 +1,2 @@
-import SpotifyService from './SpotifyService' as Spotify
-
-export { Spotify }
+import SpotifyService from './SpotifyService'
+export { SpotifyService }

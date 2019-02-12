@@ -7,14 +7,14 @@ import {
 
 import { UPDATE_USER_DATA_REQUESTED } from './../identity/actions'
 
-import { Spotify } from 'mcw-playlists'
+import { SpotifyService } from 'mcw-playlists'
 
 import { store } from './..'
 
 
 export function* authorize(action) {
   try {
-    const spotify = new Spotify()
+    const spotify = new SpotifyService()
     const channel = new BroadcastChannel('spotify-oauth')
     channel.onmessage = e => {
       const token = new URLSearchParams(e.data).get('code')
@@ -27,7 +27,7 @@ export function* authorize(action) {
         data: { spotify: { token: token } }
       })
     }
-    yield call(window.open, spotify.authorizationUrl, '_blank')
+    yield call(window.open, spotify.oauthUrl, '_blank')
   }
   catch (err) {
     yield put({ type: SPOTIFY_OAUTH_FAILED, err: err.message })

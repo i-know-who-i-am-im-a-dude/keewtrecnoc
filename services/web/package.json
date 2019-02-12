@@ -23,7 +23,7 @@
     "semantic-ui-react": "^0.79.1",
     "mcw-events": "1.0.0",
     "mcw-identity": "1.0.0",
-    "mcw-playlist": "1.0.0"
+    "mcw-playlists": "1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
