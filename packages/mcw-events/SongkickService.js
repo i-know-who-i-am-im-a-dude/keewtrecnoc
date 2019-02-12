@@ -31,7 +31,6 @@ export default class SongkickService {
 
 
   async getMetro(lat, lng) {
-    console.log(this)
     const url = `${this.host}/search/locations.json`
     const resp = await fetch(QueryUrl(url, {
       location: `geo:${lat},${lng}`,

@@ -31,12 +31,11 @@ export class AuthService {
   }
 
 
-  login = redirect => {
+  login = () => {
     return new Promise((resolve, reject) => {
       const { APP_HOST, APP_PORT, APP_PROTOCOL, LOGIN_CALLBACK } = process.env
       const host = APP_HOST === 'localhost' ? `localhost:${APP_PORT}` : APP_HOST
       const redirectUrl = `${APP_PROTOCOL}://${host}${LOGIN_CALLBACK}`
-      console.log(redirectUrl)
       const authParams = { redirectUri: redirectUrl }
       this.auth0.popup.authorize(authParams, (err, result) => {
         if (result) {
@@ -59,7 +58,7 @@ export class AuthService {
     this.auth0.popup.callback()
   }
 
-  logout = returnTo => {
+  logout = () => {
     const { APP_HOST, APP_PORT, APP_PROTOCOL } = process.env
     const host = APP_HOST === 'localhost' ? `localhost:${APP_PORT}` : APP_HOST
     this.auth0.logout({ 

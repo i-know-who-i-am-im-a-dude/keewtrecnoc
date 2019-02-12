@@ -96,12 +96,10 @@ export function* getLocation(action) {
     const { latitude, longitude } = location.location.coord
     const metro = yield call(songkick.getMetro.bind(songkick), latitude, longitude)
     location.location.metro = metro
-    console.log(location)
     yield put({ type: GET_LOCATION_DATA_SUCCEEDED, data: location })
     yield put({ type: UPDATE_USER_DATA_REQUESTED, data: location })
   }
   catch (err) {
-    console.log(err)
     yield put({ type: GET_LOCATION_DATA_FAILED, err: err.message })
   }
 }
