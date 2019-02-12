@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const dotenv = require('dotenv').config({path: __dirname + '/.env'});
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const dotenv = require('dotenv').config({path: __dirname + '/.env'})
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
 module.exports = {
   // Webpack configuration goes here
@@ -16,13 +16,13 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     rules: [
-    	// First Rule
-    	{
-    	  test: /\.(js)$/,
-    	  exclude: /node_modules/,
-    	  use: ['babel-loader']
-    	},
-    	// Second Rule
+      // First Rule
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+      // Second Rule
       {
         test: /\.css$/,
         use: [
@@ -37,8 +37,8 @@ module.exports = {
               sourceMap: true
             }
           }
-    		]
-    	}
+        ]
+      }
     ]
   },
   plugins: [
@@ -69,4 +69,4 @@ module.exports = {
     //   }
     // }
   }
-};
+}
