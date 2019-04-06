@@ -55,11 +55,11 @@ module.exports = {
     port: port,
     historyApiFallback: true,
     open: true,
-    contentBase: path.join(__dirname, 'public', 'static'),
-    https: {
-      cert: fs.readFileSync(`${__dirname}/../../cert.pem`),
-      key: fs.readFileSync(`${__dirname}/../../key.pem`)
-    },
+    contentBase: path.join(__dirname, 'public', 'static')
+  //  https: {
+    //  cert: fs.readFileSync(`${__dirname}/../../cert.pem`),
+    //  key: fs.readFileSync(`${__dirname}/../../key.pem`)
+//    },
     // proxy: {
     //   '/api': {
     //     target: 'http://localhost:5000',
