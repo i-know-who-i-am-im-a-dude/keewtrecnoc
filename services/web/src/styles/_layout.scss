@@ -1,0 +1,21 @@
+body {background-color: transparent !important;}
+
+#root {height: 100vh; width: 100vw; position: absolute; z-index: 0;background-color: $main-darker; background-size:cover;background-repeat:no-repeat;background-position:center center;}
+
+
+
+.content {width: 100%;display: flex;align-items: center;justify-content: center;min-height: 600px; flex-direction: column;
+
+    p {max-width: 900px; color: $light;}
+
+}
+
+
+
+
+// image styles
+
+img {width: 100%; object-fit: cover; object-position: 50% 50%;
+    &.background {position: absolute;top: 0;left: 0;z-index: -1;height: 100vh;width: 100vw;opacity: .5; mix-blend-mode: overlay; filter: saturate(0);} 
+}
+

@@ -8,7 +8,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import createHistory from 'history/createBrowserHistory'
-
+// import '<link rel="stylesheet" href="https://use.typekit.net/sov6ttd.css">'
+import './styles/app.scss';
 
 import Home from './views/Home'
 import { AuthCallback } from './identity'

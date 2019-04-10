@@ -1,0 +1,48 @@
+// mixins and variables for use throughout SCSS files
+
+
+// import fonts
+@import url("https://use.typekit.net/sov6ttd.css");
+
+//colors
+
+$bg-color: #fafafa;
+$main-color: #8d68aa;
+$main-darker: darken($main-color, 33%);
+$main-lighter: lighten($main-color, 50%);
+$light: #ecea;
+$comp-color: #ffc212;
+
+
+// fontstuff
+
+$font: 'futura-pt', 'Futura', sans-serif;
+
+
+// media queries if needed in the future should go here
+
+
+
+
+//mixins
+
+
+@mixin hocus {
+    &:hover,
+    &:active,
+    &:focus {
+        @content;
+    }
+}
+
+
+
+// CSS resets
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}

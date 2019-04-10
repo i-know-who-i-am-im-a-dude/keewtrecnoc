@@ -24,19 +24,39 @@ module.exports = {
       },
       // Second Rule
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         use: [
           {
             loader: 'style-loader'
           },
-          {
-            loader: 'css-loader',
+            {
+            loader:  'css-loader',
             options: {
-              modules: true,
+              modules: false,
+              camelCase: true,
+              sourceMap: true
+            }
+          },
+          {
+            loader:  'sass-loader',
+            options: {
+              modules: false,
               camelCase: true,
               sourceMap: true
             }
           }
+        ]
+      },
+        // image loader rule
+         {
+        test: /\.(jpg|png|gif|svg|pdf|ico)$/,
+        use: [
+            {
+            loader: 'file-loader',
+            options: {
+                name: '[path][name]-[hash:8].[ext]'
+                    },
+            },
         ]
       }
     ]

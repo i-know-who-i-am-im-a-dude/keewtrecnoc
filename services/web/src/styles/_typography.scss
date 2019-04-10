@@ -1,0 +1,29 @@
+
+html, body {font-size: 100%;}
+
+h1, h2, h3, h4, h5, h6 {font-family: $font; font-weight: 600; text-transform: uppercase; color: $light;}
+
+body, p, ul, ol, li, span, blockquote {font-family: $font; font-weight: 200; font-size: 1.2rem; letter-spacing: .1rem;}
+
+a {color: $light;
+
+    @include hocus {color: $main-color}
+}
+
+h1 {font-size: 4.14rem; letter-spacing: 2rem;
+    &.title {mix-blend-mode: overlay;}
+}
+h2 {font-size: 2.56rem;}
+h3 {font-size: 1.6rem;}
+h4 {font-size: 1rem;}
+
+
+
+.ui {
+    .menu {
+        .item {font-family: $font; text-transform: uppercase; letter-spacing: .3rem; font-size: 1rem; font-weight: 200;}
+    }
+    
+    .button {font-family: $font; text-transform: uppercase; letter-spacing: .3rem; font-size: 1rem; font-weight: 200;}
+    
+}

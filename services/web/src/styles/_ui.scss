@@ -1,0 +1,12 @@
+.ui {
+    
+    .menu {align-items: center; justify-content: center;
+            .item {color: $light;
+                @include hocus {color: $comp-color;} 
+            } // end ui menu item   
+    } // end ui menu 
+    
+    .button {border-radius: 0px; border: 1px solid $main-color; background-color: transparent; background-image: linear-gradient(to right, $main-color 50%, transparent 50%); color: $main-color; background-size: 201% 100%; background-repeat: no-repeat; background-position: right bottom;
+        @include hocus {background-position: left bottom; background-color: transparent; color: $comp-color; background-image: linear-gradient(to right, $main-color 50%, transparent 50%);}
+    }
+}
